@@ -12,4 +12,5 @@ traceback.txt
 cache/
 game/saves/navigation.json
 dists/
-__pycache__
+__pycache__/
+*.py[cod]
