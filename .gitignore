@@ -14,3 +14,4 @@ game/saves/navigation.json
 dists/
 __pycache__/
 *.py[cod]
+tmp/
