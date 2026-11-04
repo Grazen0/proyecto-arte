@@ -1,6 +1,7 @@
 the_question/ matches ** (None).
 renpy/ matches renpy/ (None).
 renpy.app/ matches *.app/ (None).
+.github/ matches **/.** (None).
 tmp/ matches tmp/ (None).
 Session.vim matches ** (None).
 gui/ matches ** (None).
@@ -16,7 +17,6 @@ tutorial/ matches ** (None).
 doc/ matches ** (None).
 update/ matches update/ (None).
 dists/ matches ** (None).
-tutorial_7-8.5.3.26051504-dists/ matches ** (None).
 README.md matches ** (None).
 lib/ matches lib/ (None).
 launcher/ matches ** (None).
@@ -750,6 +750,7 @@ renpy/substitutions.py matches renpy/**.py (['renpy']).
 renpy/color.py matches renpy/**.py (['renpy']).
 renpy.app/ doesn't match anything.
 renpy.app/ matches None (None).
+.github/ matches **/.* (None).
 tmp/ doesn't match anything.
 tmp/ matches None (None).
 Session.vim doesn't match anything.
@@ -777,8 +778,6 @@ update/ doesn't match anything.
 update/ matches None (None).
 dists/ doesn't match anything.
 dists/ matches None (None).
-tutorial_7-8.5.3.26051504-dists/ doesn't match anything.
-tutorial_7-8.5.3.26051504-dists/ matches None (None).
 README.md doesn't match anything.
 README.md matches None (None).
 lib/ matches lib/** (['windows', 'linux', 'mac', 'android', 'ios']).
