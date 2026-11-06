@@ -1,4 +1,4 @@
-﻿# The script of the game goes in this file.
+# The script of the game goes in this file.
 
 # --- Characters --------------------------------------------------------------
 
@@ -17,7 +17,9 @@ define bz = Character("Bezout", color="#d9a441", callback=bezout_habla)
 
 default proyecto_iniciado = False
 default zona_despejada = False
-default metodo_extraccion = None
+default metodo_extraccion = None       # "mercurio" o "gravimetrico"
+default uso_mercurio = False
+default negaciones_finales = 0
 
 
 # --- Minimalist artwork ------------------------------------------------------
@@ -311,10 +313,12 @@ label proyecto_aceptado:
 
         "Usemos mercurio.":
             $ metodo_extraccion = "mercurio"
+            $ uso_mercurio = True
             bz "Me parece bien, como siempre lo hemos trabajado."
 
         "Usemos el gravimétrico.":
             $ metodo_extraccion = "gravimetrico"
+            $ uso_mercurio = False
             bz "¿Seguro? Nos costará mucho más, pero está bien."
 
     jump continuara
@@ -322,14 +326,72 @@ label proyecto_aceptado:
 
 label final_rechazo:
 
-    bz "..."
-    bz "¿En serio, socio? Bueno. Tú mandas."
-    "Bezout guarda el celular y contempla el terreno en silencio."
-    "Decides volver al campamento. El proyecto no se lleva a cabo."
+    bz "¿En serio? Pero si los resultados son mejores de lo que esperábamos. No todos los días encontramos algo así."
+    bz "Piénsalo un momento. Ya tenemos buena parte del trabajo hecho. ¿Por qué no dar el siguiente paso?"
+
+    menu:
+        "Tienes razón, deberíamos continuar.":
+            $ proyecto_iniciado = True
+            jump proyecto_aceptado
+
+        "No creo que sea buena idea…":
+            pass
+
+    bz "Vamos, no seas tan pesimista. ¿Qué es lo que te hace dudar? Tenemos información favorable y una oportunidad que vale la pena explorar."
+    bz "Además, si no nos atrevemos a intentarlo, nunca sabremos hasta dónde podríamos llegar."
+
+    menu:
+        "Está bien, tienes razón.":
+            $ proyecto_iniciado = True
+            jump proyecto_aceptado
+
+        "Sigo pensando que no…":
+            pass
+
+    bz "¡Pero vamos! ¿Después de todo lo que hemos investigado, vamos a echarlo todo por la borda?"
+    bz "Los resultados están ahí. Al menos deberíamos darle una oportunidad."
+    bz "Y no olvides algo: si nosotros no actuamos, alguien más podría adelantarse."
+
+    menu:
+        "De acuerdo, hagamos la extracción.":
+            $ proyecto_iniciado = True
+            jump proyecto_aceptado
+
+        "Mi respuesta sigue siendo no.":
+            pass
+
+    bz "¿Todavía no estás convencido? ¡No puedo creerlo! Te he mostrado los resultados, hemos revisado las posibilidades y seguimos teniendo una excelente oportunidad frente a nosotros."
+    bz "Mira, no quiero presionarte, pero sería frustrante descubrir más adelante que dejamos escapar algo que pudo haber sido extraordinario."
+
+    menu:
+        "Está bien, hagámoslo.":
+            $ proyecto_iniciado = True
+            jump proyecto_aceptado
+
+        "No. Definitivamente no.":
+            pass
+
+    "Bezout da un suspiro."
+
+    bz "Bueno… parece que ya tomaste una decisión."
+    bz "He intentado convencerte de todas las maneras posibles, pero veo que no hay forma de hacerte cambiar de opinión."
+    bz "Está bien, no insistiré más."
+
+    "Bezout escribe algo en su celular."
+
+    bz "Veo que no tengo nada que hacer contigo, socio. Yo me iré retirando."
 
     hide bezout with dissolve
 
-    centered "{size=+16}Fin{/size}\n\nRechazaste el proyecto."
+    "..."
+
+    scene bg ventana with fade
+
+    "Meditas sobre lo que acaba de suceder."
+    "¿Tomaste la decisión correcta?"
+    "Solo tú puedes determinar eso."
+
+    centered "{size=+16}Fin del juego{/size}"
 
     return
 

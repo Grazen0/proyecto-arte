@@ -33,9 +33,7 @@ define config.language = "spanish"
 ## triple-quotes, and leave a blank line between paragraphs.
 
 define gui.about = _p("""
-Una historia sobre minería, socios y decisiones en Madre de Dios.
-
-Versión de desarrollo. Todos los gráficos son formas y colores simples.
+Una historia sobre la minería y sus efectos devastadores en el medio ambiente en Madre de Dios.
 """)
 
 
