@@ -4,10 +4,10 @@
 
 init python:
     def bezout_habla(event, interact=True, **kwargs):
-        """Alterna una boca animada únicamente mientras Bezout tiene diálogo."""
+        """Anima la boca durante el scroll y la detiene al terminar el texto."""
         if event == "begin":
             renpy.show("bezout hablando", at_list=[renpy.store.bezout_grande])
-        elif event == "end":
+        elif event in ("slow_done", "end"):
             renpy.show("bezout neutral", at_list=[renpy.store.bezout_grande])
 
 define bz = Character("Bezout", color="#d9a441", callback=bezout_habla)
