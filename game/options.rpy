@@ -12,7 +12,7 @@
 ##
 ## The _() surrounding the string marks it as eligible for translation.
 
-define config.name = _("Proyecto Arte")
+define config.name = _("Lo que no figura en el balance")
 
 
 ## Determines if the title given above is shown on the main menu screen. Set
@@ -30,9 +30,9 @@ define config.version = "0.1"
 ## triple-quotes, and leave a blank line between paragraphs.
 
 define gui.about = _p("""
-A tiny demo visual novel about an artist, a painting, and one small emergency.
+Una historia sobre minería, socios y decisiones en Madre de Dios.
 
-Made with Ren'Py to test web exports. All graphics are flat colors and text.
+Versión de desarrollo. Todos los gráficos son formas y colores simples.
 """)
 
 

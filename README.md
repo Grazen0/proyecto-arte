@@ -1,12 +1,13 @@
-# Proyecto Arte — Ren'Py web-export demo
+# Arte y Tecnología -- Proyecto final
 
-A tiny visual novel made to test Ren'Py web exports. All graphics are flat
-colors and text, so there are no image assets to worry about.
+Una novela visual sobre minería, socios y decisiones en Madre de Dios. Todos
+los gráficos son formas y colores simples, así que todavía no hay assets de
+imagen.
 
-- `game/script.rpy` — the story
-- `game/options.rpy` — game title, version, and build settings
-- `game/gui.rpy`, `game/screens.rpy` — generated default GUI
-- `dist/web/` — latest web export (built artifact, git-ignored)
+- `game/script.rpy` — la historia
+- `game/options.rpy` — título, versión y configuración del build
+- `game/gui.rpy`, `game/screens.rpy` — GUI por defecto generada
+- `dists/web/` — último export web (artefacto generado, ignorado por Git)
 
 ## Run locally
 
