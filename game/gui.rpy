@@ -83,11 +83,14 @@ define gui.notify_text_size = 16
 ## The size of the game's title.
 define gui.title_text_size = 50
 
+## A dark outline keeps the title readable over the forest background.
+define gui.title_text_outlines = [(4, "#061009c0", 0, 0)]
+
 
 ## Main and Game Menus #########################################################
 
 ## The images used for the main and game menus.
-define gui.main_menu_background = "gui/main_menu.png"
+define gui.main_menu_background = "images/title_forest.png"
 define gui.game_menu_background = "gui/game_menu.png"
 
 

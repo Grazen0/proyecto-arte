@@ -289,8 +289,10 @@ style quick_button_text:
 
 screen navigation():
 
+    $ navigation_style_prefix = "main_menu_navigation" if main_menu else "navigation"
+
     vbox:
-        style_prefix "navigation"
+        style_prefix navigation_style_prefix
 
         xpos gui.navigation_xpos
         yalign 0.5
@@ -343,6 +345,13 @@ style navigation_button:
 style navigation_button_text:
     properties gui.text_properties("navigation_button")
 
+## The main menu needs brighter buttons than the in-game menus, since it sits
+## directly over the forest artwork.
+style main_menu_navigation_button is navigation_button
+style main_menu_navigation_button_text is navigation_button_text:
+    idle_color "#c9dcc2"
+    hover_color "#ffffff"
+
 
 ## Main Menu screen ############################################################
 ##
@@ -350,12 +359,20 @@ style navigation_button_text:
 ##
 ## https://www.renpy.org/doc/html/screen_special.html#main-menu
 
+transform main_menu_bg_zoom:
+    xalign 0.5
+    yalign 0.5
+    zoom 1.0
+    linear 45.0 zoom 1.06
+    linear 45.0 zoom 1.0
+    repeat
+
 screen main_menu():
 
     ## This ensures that any other menu screen is replaced.
     tag menu
 
-    add gui.main_menu_background
+    add gui.main_menu_background at main_menu_bg_zoom
 
     ## This empty frame darkens the main menu.
     frame:
