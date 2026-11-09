@@ -345,7 +345,7 @@ label start:
     "Ha mostrado ser la región más rentable, después de todo."
     "Sin embargo, todo lo que has logrado no ha sido exactamente gracias a trabajar siguiendo la ley."
     "Has tenido que pasar por alto una que otra regla en múltiples ocasiones."
-    "“Ilícito” llamarían algunos al tipo de minería del que te encargas, pero “así es la vida” sueles decir."
+    "\"Ilícito\" llamarían algunos al tipo de minería del que te encargas."
     "Conociste a Bezout allá por tus primeros años involucrados en minería."
     "Es empresario, como tú, y juntos han levantado múltiples operativos mineros aquí en la selva."
     "Por suerte, habías viajado hace poco a Madre de Dios para supervisar uno de los sitios que gestionas."
@@ -357,9 +357,9 @@ label start:
     scene bg periodico with dissolve
 
     "..."
-    "Es verdad, tus minas vienen causando este tipo de efectos, y lo sabes desde hace muchos años."
+    "Es verdad, tus minas vienen causando estos efectos, y lo sabes desde hace muchos años."
     "Pero el negocio es extremadamente rentable."
-    "“Algún sacrificio se tiene que hacer”, piensas."
+    "\"Algún sacrificio se tiene que hacer\", piensas."
 
     scene bg cuarto periodico with fade
 
@@ -513,6 +513,8 @@ label final_rechazo:
     "¿Tomaste la decisión correcta?"
     "Solo tú puedes determinar eso."
 
+    scene expression paisaje_final(proyecto_iniciado, zona_despejada, uso_mercurio) with fade
+
     centered "{size=+16}Fin del juego{/size}"
 
     return
@@ -521,6 +523,8 @@ label final_rechazo:
 label continuara:
 
     hide bezout with dissolve
+
+    scene expression paisaje_final(proyecto_iniciado, zona_despejada, uso_mercurio) with fade
 
     centered "{size=+16}Continuará…{/size}\n\nFin de la demo."
 
