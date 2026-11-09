@@ -445,7 +445,7 @@ init python:
                 break
 
         if presplash:
-            os.unlink(os.path.join(destination, "web-presplash.jpg"))
+            os.unlink(os.path.join(destination, "web-presplash.png"))
             shutil.copy(os.path.join(p.path, presplash), os.path.join(destination, presplash))
 
         # Copy over index.html.
@@ -455,7 +455,7 @@ init python:
         html = html.replace("Ren'Py Web Game", display_name)
 
         if presplash:
-            html = html.replace("web-presplash.jpg", presplash)
+            html = html.replace("web-presplash.png", presplash)
 
         with io.open(os.path.join(destination, "index.html"), "w", encoding='utf-8') as f:
             f.write(html)

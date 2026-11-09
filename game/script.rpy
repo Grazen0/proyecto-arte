@@ -69,6 +69,111 @@ image bg cuarto = Fixed(
     Text("●", size=48, color="#4d8b5d", xpos=1197, ypos=360),
 )
 
+image bg cuarto periodico = Fixed(
+    "bg cuarto",
+
+    # Mesa auxiliar con el periódico del día.
+    Solid("#0b1a16a0", xpos=742, ypos=564, xysize=(330, 18)),
+    Solid("#62442e", xpos=748, ypos=430, xysize=(318, 26)),
+    Solid("#4d3527", xpos=760, ypos=456, xysize=(294, 104)),
+    Solid("#4d3527", xpos=768, ypos=560, xysize=(18, 88)),
+    Solid("#4d3527", xpos=1026, ypos=560, xysize=(18, 88)),
+
+    # Periódico doblado sobre la mesa.
+    Solid("#d8d8d4", xpos=778, ypos=422, xysize=(248, 40)),
+    Solid("#f2f2f0", xpos=770, ypos=418, xysize=(248, 40)),
+    Solid("#3a3a38", xpos=792, ypos=426, xysize=(92, 5)),
+    Solid("#9a9a96", xpos=792, ypos=436, xysize=(200, 4)),
+    Solid("#8a8a86", xpos=792, ypos=444, xysize=(70, 10)),
+    Solid("#9a9a96", xpos=872, ypos=444, xysize=(90, 3)),
+    Solid("#9a9a96", xpos=872, ypos=449, xysize=(78, 3)),
+    Solid("#9a9a96", xpos=872, ypos=454, xysize=(84, 3)),
+
+    # Taza de café.
+    Solid("#d8d8d4", xpos=1016, ypos=426, xysize=(44, 8)),
+    Solid("#2f6851", xpos=1022, ypos=398, xysize=(28, 30)),
+    Solid("#2f6851", xpos=1048, ypos=406, xysize=(10, 12)),
+    Solid("#e1c667", xpos=1026, ypos=402, xysize=(20, 20)),
+)
+
+image periodico_manu = Fixed(
+    # Fotografía aérea del río Manu, ya en blanco y negro.
+    Transform("manu.jpg", zoom=1.5),
+
+    # Marco de impresión.
+    Solid("#4a4a46", xpos=0, ypos=0, xysize=(720, 3)),
+    Solid("#4a4a46", xpos=0, ypos=402, xysize=(720, 3)),
+    Solid("#4a4a46", xpos=0, ypos=0, xysize=(3, 405)),
+    Solid("#4a4a46", xpos=717, ypos=0, xysize=(3, 405)),
+
+    xysize=(720, 405),
+)
+
+image periodico_puente = Fixed(
+    # Fotografía aérea en blanco y negro del puente Billinghurst.
+    Transform("puente.jpg", zoom=0.4286),
+
+    # Marco de impresión.
+    Solid("#4a4a46", xpos=0, ypos=0, xysize=(330, 3)),
+    Solid("#4a4a46", xpos=0, ypos=164, xysize=(330, 3)),
+    Solid("#4a4a46", xpos=0, ypos=0, xysize=(3, 167)),
+    Solid("#4a4a46", xpos=327, ypos=0, xysize=(3, 167)),
+
+    xysize=(330, 167),
+)
+
+image bg periodico = Fixed(
+    # Escritorio oscuro y periódico en blanco y negro.
+    Solid("#142c25"),
+    Solid("#1d3b31", xpos=0, ypos=0, xysize=(1280, 70)),
+    Solid("#0c1d18", xpos=0, ypos=610, xysize=(1280, 110)),
+
+    # Hoja de periódico.
+    Solid("#0a1512", xpos=66, ypos=42, xysize=(1186, 700)),
+    Solid("#d8d8d4", xpos=48, ypos=24, xysize=(1188, 700)),
+    Solid("#f2f2f0", xpos=36, ypos=12, xysize=(1188, 700)),
+
+    # Cabecera.
+    Text("Madre de Dios", size=22, color="#161616", xpos=524, ypos=56),
+    Text("El Noticiero", size=40, bold=True, color="#161616", xpos=80, ypos=38),
+    Solid("#2a2a2a", xpos=80, ypos=96, xysize=(600, 3)),
+    Solid("#9a9a96", xpos=760, ypos=44, xysize=(160, 5)),
+    Solid("#9a9a96", xpos=940, ypos=44, xysize=(100, 5)),
+    Solid("#9a9a96", xpos=760, ypos=56, xysize=(230, 5)),
+    Solid("#9a9a96", xpos=760, ypos=68, xysize=(190, 5)),
+
+    # Titular principal.
+    Text(
+        "Índice de mercurio en la atmósfera\nsobre Manu aumenta en un 40%",
+        size=36,
+        bold=True,
+        color="#111111",
+        xpos=80,
+        ypos=120,
+        xmaximum=740,
+        line_spacing=-2,
+    ),
+    Solid("#9a9a96", xpos=80, ypos=222, xysize=(620, 6)),
+    Solid("#9a9a96", xpos=80, ypos=236, xysize=(560, 6)),
+
+    # Imagen principal y miniatura.
+    Transform("periodico_manu", xpos=80, ypos=252),
+    Transform("periodico_puente", xpos=840, ypos=252),
+    Solid("#9a9a96", xpos=840, ypos=424, xysize=(220, 5)),
+    Solid("#9a9a96", xpos=840, ypos=436, xysize=(190, 5)),
+
+    # Columna de texto no especificado.
+    Solid("#3a3a38", xpos=840, ypos=218, xysize=(220, 8)),
+    Solid("#9a9a96", xpos=840, ypos=452, xysize=(300, 5)),
+    Solid("#9a9a96", xpos=840, ypos=464, xysize=(280, 5)),
+    Solid("#9a9a96", xpos=840, ypos=476, xysize=(310, 5)),
+    Solid("#9a9a96", xpos=840, ypos=488, xysize=(260, 5)),
+    Solid("#9a9a96", xpos=840, ypos=500, xysize=(290, 5)),
+    Solid("#9a9a96", xpos=840, ypos=512, xysize=(240, 5)),
+    Solid("#9a9a96", xpos=840, ypos=524, xysize=(300, 5)),
+
+)
+
 image bg ventana = Fixed(
     # Interior de vehículo/cabaña durante el trayecto.
     Solid("#10251f"),
@@ -225,7 +330,7 @@ transform bezout_grande:
 
 label start:
 
-    scene bg cuarto with fade
+    scene bg cuarto periodico with fade
 
     "Es un día nuevo."
     "Te levantas y revisas tu celular."
@@ -236,11 +341,28 @@ label start:
     scene bg ventana with fade
 
     "Eres empresario en minería desde hace unos 10 años. El negocio nunca ha dejado de ser fructífero."
-    "Aunque has gestionado sitios de extracción en otros lugares, estos últimos años has estado en Madre de Dios. Ha mostrado ser la región más rentable, después de todo."
-    "Sin embargo, todo lo que has logrado no ha sido exactamente gracias a trabajar junto al Estado. Has tenido que pasar por alto una que otra regla en múltiples ocasiones."
-    "«Ilícito» llamarían algunos al tipo de minería del que te encargas, pero «así es la vida» sueles decir."
-    "Conociste a Bezout en tus primeros años en la minería. Es empresario, como tú."
+    "Aunque has gestionado sitios de extracción en otros lugares, estos últimos años has estado en Madre de Dios."
+    "Ha mostrado ser la región más rentable, después de todo."
+    "Sin embargo, todo lo que has logrado no ha sido exactamente gracias a trabajar siguiendo la ley."
+    "Has tenido que pasar por alto una que otra regla en múltiples ocasiones."
+    "“Ilícito” llamarían algunos al tipo de minería del que te encargas, pero “así es la vida” sueles decir."
+    "Conociste a Bezout allá por tus primeros años involucrados en minería."
+    "Es empresario, como tú, y juntos han levantado múltiples operativos mineros aquí en la selva."
     "Por suerte, habías viajado hace poco a Madre de Dios para supervisar uno de los sitios que gestionas."
+
+    scene bg cuarto periodico with fade
+
+    "Te fijas en el periódico que trajiste el otro día."
+
+    scene bg periodico with dissolve
+
+    "..."
+    "Es verdad, tus minas vienen causando este tipo de efectos, y lo sabes desde hace muchos años."
+    "Pero el negocio es extremadamente rentable."
+    "“Algún sacrificio se tiene que hacer”, piensas."
+
+    scene bg cuarto periodico with fade
+
     "Sin mayor demora, terminas de alistarte y vas a donde Bezout."
 
     scene bg bosque with fade

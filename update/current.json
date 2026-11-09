@@ -3554,9 +3554,7 @@
     ]
   },
   "web": {
-    "directories": [
-      "web"
-    ],
+    "directories": ["web"],
     "files": [
       "web/hash.txt",
       "web/index.html",
@@ -3568,7 +3566,7 @@
       "web/renpy.wasm",
       "web/service-worker.js",
       "web/web-icon.png",
-      "web/web-presplash.jpg"
+      "web/web-presplash.png"
     ],
     "xbit": [],
     "version": "c001800d5ffc18debec0f8ea3b4781eea682a1562f67530002a0825c9e8eeacb",
