@@ -14,6 +14,31 @@ image final terreno = Fixed(
 
 image final arboles = Fixed(
     # Selva intacta en ambas orillas. Esta capa desaparece si se tala.
+    # Árboles pequeños y copas entrelazadas al fondo de la ribera.
+    Solid("#346e4d", xpos=21, ypos=338, xysize=(12, 112)),
+    Text("●", size=74, color="#4a9667", xpos=-6, ypos=302),
+    Solid("#346e4d", xpos=122, ypos=326, xysize=(11, 124)),
+    Text("●", size=79, color="#438d5e", xpos=90, ypos=287),
+    Solid("#346e4d", xpos=207, ypos=342, xysize=(11, 108)),
+    Text("●", size=70, color="#4a9667", xpos=182, ypos=307),
+    Solid("#346e4d", xpos=365, ypos=330, xysize=(12, 120)),
+    Text("●", size=78, color="#438d5e", xpos=336, ypos=291),
+    Solid("#346e4d", xpos=438, ypos=342, xysize=(11, 108)),
+    Text("●", size=74, color="#4a9667", xpos=411, ypos=305),
+    Solid("#346e4d", xpos=563, ypos=324, xysize=(11, 126)),
+    Text("●", size=84, color="#438d5e", xpos=529, ypos=281),
+    Solid("#346e4d", xpos=647, ypos=339, xysize=(12, 111)),
+    Text("●", size=75, color="#4a9667", xpos=619, ypos=302),
+    Solid("#346e4d", xpos=823, ypos=329, xysize=(11, 121)),
+    Text("●", size=82, color="#438d5e", xpos=791, ypos=288),
+    Solid("#346e4d", xpos=908, ypos=343, xysize=(12, 107)),
+    Text("●", size=73, color="#4a9667", xpos=880, ypos=307),
+    Solid("#346e4d", xpos=1082, ypos=333, xysize=(12, 117)),
+    Text("●", size=80, color="#438d5e", xpos=1050, ypos=292),
+    Solid("#346e4d", xpos=1241, ypos=338, xysize=(12, 112)),
+    Text("●", size=76, color="#4a9667", xpos=1212, ypos=299),
+
+    # Árboles grandes delante de la línea de vegetación.
     Solid("#20533d", xpos=65, ypos=250, xysize=(28, 200)),
     Text("●", size=172, color="#317b51", xpos=0, ypos=177),
     Text("●", size=130, color="#3d8e5c", xpos=80, ypos=220),
@@ -27,6 +52,11 @@ image final arboles = Fixed(
     Text("●", size=180, color="#317b51", xpos=918, ypos=166),
     Solid("#20533d", xpos=1183, ypos=257, xysize=(30, 193)),
     Text("●", size=146, color="#398357", xpos=1115, ypos=190),
+    Text("●", size=98, color="#347c53", xpos=144, ypos=314),
+    Text("●", size=91, color="#2d704d", xpos=373, ypos=308),
+    Text("●", size=102, color="#347c53", xpos=580, ypos=303),
+    Text("●", size=95, color="#2d704d", xpos=810, ypos=306),
+    Text("●", size=103, color="#347c53", xpos=1053, ypos=303),
     xysize=(1280, 720),
 )
 

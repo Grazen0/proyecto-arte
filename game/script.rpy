@@ -221,6 +221,31 @@ image bg bosque = Fixed(
     # Sol alto, al fondo y entre claros de la copa de los árboles.
     Text("●", size=162, color="#e2d77b", xpos=327, ypos=-38),
 
+    # Selva densa al fondo: copas superpuestas de distintas alturas,
+    # como la vegetación continua de las riberas de Madre de Dios.
+    Solid("#285f43", xpos=25, ypos=251, xysize=(14, 197)),
+    Text("●", size=84, color="#36805a", xpos=-8, ypos=207),
+    Solid("#285f43", xpos=142, ypos=278, xysize=(12, 170)),
+    Text("●", size=76, color="#419064", xpos=112, ypos=237),
+    Solid("#285f43", xpos=225, ypos=235, xysize=(14, 213)),
+    Text("●", size=90, color="#317451", xpos=190, ypos=189),
+    Solid("#285f43", xpos=373, ypos=268, xysize=(13, 180)),
+    Text("●", size=85, color="#3a865c", xpos=339, ypos=225),
+    Solid("#285f43", xpos=456, ypos=244, xysize=(13, 204)),
+    Text("●", size=89, color="#327a53", xpos=422, ypos=199),
+    Solid("#285f43", xpos=611, ypos=257, xysize=(14, 191)),
+    Text("●", size=82, color="#419064", xpos=578, ypos=215),
+    Solid("#285f43", xpos=687, ypos=223, xysize=(13, 225)),
+    Text("●", size=93, color="#337a53", xpos=649, ypos=173),
+    Solid("#285f43", xpos=841, ypos=270, xysize=(14, 178)),
+    Text("●", size=85, color="#3a865c", xpos=808, ypos=227),
+    Solid("#285f43", xpos=933, ypos=231, xysize=(13, 217)),
+    Text("●", size=91, color="#337a53", xpos=897, ypos=183),
+    Solid("#285f43", xpos=1101, ypos=254, xysize=(14, 194)),
+    Text("●", size=85, color="#419064", xpos=1067, ypos=211),
+    Solid("#285f43", xpos=1242, ypos=267, xysize=(13, 181)),
+    Text("●", size=91, color="#337a53", xpos=1206, ypos=219),
+
     # Árboles lejanos y follaje en capas.
     Solid("#1b4a36", xpos=78, ypos=112, xysize=(34, 355)),
     Text("●", size=160, color="#2e7550", xpos=6, ypos=55),
@@ -235,6 +260,15 @@ image bg bosque = Fixed(
     Text("●", size=195, color="#245f43", xpos=932, ypos=10),
     Solid("#173e30", xpos=1191, ypos=174, xysize=(34, 293)),
     Text("●", size=150, color="#2b704d", xpos=1120, ypos=98),
+
+    # Follaje cercano de la ribera: el bosque no termina en una fila de troncos.
+    Text("●", size=89, color="#286848", xpos=35, ypos=298),
+    Text("●", size=104, color="#2f7550", xpos=162, ypos=296),
+    Text("●", size=96, color="#286848", xpos=348, ypos=280),
+    Text("●", size=108, color="#2e704e", xpos=555, ypos=301),
+    Text("●", size=97, color="#276446", xpos=749, ypos=287),
+    Text("●", size=106, color="#2f7550", xpos=901, ypos=297),
+    Text("●", size=94, color="#286848", xpos=1096, ypos=284),
 
     # Río Tambopata y reflejos suaves.
     Solid("#4d9bad", xpos=0, ypos=448, xysize=(1280, 126)),
