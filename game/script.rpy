@@ -19,12 +19,53 @@ default proyecto_iniciado = False
 default zona_despejada = False
 default metodo_extraccion = None       # "mercurio" o "gravimetrico"
 default uso_mercurio = False
+default plan_cierre = False
 default negaciones_finales = 0
 
 
 # --- Minimalist artwork ------------------------------------------------------
 # A shared palette keeps the room, travel view, forest, and character cohesive:
 # deep jungle greens, blue-green water, warm wood, and a muted gold accent.
+
+init -1 python:
+    def rio_por_ventana(ancho, alto, orillas):
+        """El mismo cauce curvo, estrechándose suavemente hacia la derecha."""
+        def bordes(posicion):
+            for (x0, arriba0, abajo0), (x1, arriba1, abajo1) in zip(orillas, orillas[1:]):
+                if posicion <= x1:
+                    avance = float(posicion - x0) / (x1 - x0)
+                    return (int(arriba0 + (arriba1 - arriba0) * avance),
+                            int(abajo0 + (abajo1 - abajo0) * avance))
+            return orillas[-1][1:]
+
+        partes = []
+        for x in range(0, ancho, 8):
+            arriba, abajo = bordes(x)
+            tramo = min(8, ancho - x)
+            partes.append(Solid("#5b9875", xpos=x, ypos=arriba - 4, xysize=(tramo, 4)))
+            partes.append(Solid("#4a9bad", xpos=x, ypos=arriba,
+                                xysize=(tramo, abajo - arriba)))
+            partes.append(Solid("#3d889d", xpos=x, ypos=abajo - (abajo - arriba) // 3,
+                                xysize=(tramo, (abajo - arriba) // 3)))
+
+        for indice, (fraccion, largo) in enumerate(((0.11, 0.13), (0.38, 0.11), (0.70, 0.13))):
+            x = int(ancho * fraccion)
+            arriba, abajo = bordes(x)
+            partes.append(Solid("#acd4c8", xpos=x,
+                                ypos=arriba + int((abajo - arriba) * (0.65 if indice == 1 else 0.30)),
+                                xysize=(int(ancho * largo), 3)))
+        return Fixed(*partes, xysize=(ancho, alto))
+
+
+image cuarto rio pampa = rio_por_ventana(340, 262, (
+    (0, 183, 241), (85, 188, 249), (170, 195, 244),
+    (245, 192, 236), (340, 182, 227),
+))
+
+image ventana rio pampa = rio_por_ventana(820, 404, (
+    (0, 259, 370), (180, 269, 378), (390, 283, 368),
+    (590, 273, 350), (820, 256, 326),
+))
 
 image cuarto vista pampa = Fixed(
     # Vista desde la habitación: cielo y selva continua de Madre de Dios.
@@ -54,21 +95,8 @@ image cuarto vista pampa = Fixed(
     Text("●", size=42, color="#286b4b", xpos=140, ypos=135),
     Text("●", size=45, color="#397c55", xpos=277, ypos=137),
 
-    # El Tambopata aparece a lo lejos y se ensancha hacia la ventana.
-    Solid("#5b9875", xpos=203, ypos=148, xysize=(48, 11)),
-    Solid("#4a9bad", xpos=210, ypos=150, xysize=(29, 8)),
-    Solid("#4a9bad", xpos=203, ypos=158, xysize=(45, 9)),
-    Solid("#4a9bad", xpos=192, ypos=167, xysize=(65, 10)),
-    Solid("#4a9bad", xpos=181, ypos=177, xysize=(86, 11)),
-    Solid("#4a9bad", xpos=167, ypos=188, xysize=(115, 12)),
-    Solid("#4a9bad", xpos=151, ypos=200, xysize=(146, 12)),
-    Solid("#3d889d", xpos=128, ypos=212, xysize=(185, 13)),
-    Solid("#3d889d", xpos=108, ypos=225, xysize=(215, 13)),
-    Solid("#3d889d", xpos=85, ypos=238, xysize=(252, 12)),
-    Solid("#3d889d", xpos=65, ypos=250, xysize=(275, 12)),
-    Solid("#acd4c8", xpos=200, ypos=172, xysize=(35, 3)),
-    Solid("#acd4c8", xpos=191, ypos=196, xysize=(63, 3)),
-    Solid("#acd4c8", xpos=152, ypos=228, xysize=(79, 3)),
+    # El Tambopata recorre la vista hacia la derecha, no hacia el observador.
+    "cuarto rio pampa",
     # Vegetación cercana que enmarca ambas márgenes.
     Text("●", size=91, color="#245d41", xpos=-33, ypos=159),
     Text("●", size=72, color="#30714d", xpos=2, ypos=202),
@@ -88,7 +116,13 @@ image bg cuarto = Fixed(
     # Ventana con vista al río y a la selva de Madre de Dios.
     Solid("#805e3d", xpos=754, ypos=76, xysize=(392, 314)),
     Solid("#102c27", xpos=766, ypos=88, xysize=(368, 290)),
-    Transform("cuarto vista pampa", xpos=780, ypos=102),
+    # Recorta las copas a los límites del vidrio: Fixed no recorta sus hijos.
+    Transform("cuarto vista pampa", crop=(0, 0, 340, 262), xpos=780, ypos=102),
+    # El marco siempre queda por delante del paisaje.
+    Solid("#805e3d", xpos=754, ypos=76, xysize=(392, 12)),
+    Solid("#805e3d", xpos=754, ypos=378, xysize=(392, 12)),
+    Solid("#805e3d", xpos=754, ypos=88, xysize=(12, 290)),
+    Solid("#805e3d", xpos=1134, ypos=88, xysize=(12, 290)),
     Solid("#805e3d", xpos=940, ypos=88, xysize=(14, 276)),
     Solid("#805e3d", xpos=780, ypos=220, xysize=(340, 13)),
 
@@ -141,6 +175,52 @@ image bg cuarto periodico = Fixed(
     Solid("#e1c667", xpos=1026, ypos=402, xysize=(20, 20)),
 )
 
+image ventana vista pampa = Fixed(
+    # Acercamiento a la misma ribera de Madre de Dios visible desde el cuarto.
+    Solid("#82b8be"),
+    Solid("#9bc9c0", xpos=0, ypos=132, xysize=(820, 85)),
+    Text("●", size=69, color="#e0e8df", xpos=100, ypos=39),
+    Text("●", size=91, color="#e0e8df", xpos=135, ypos=23),
+    Text("●", size=61, color="#e0e8df", xpos=197, ypos=48),
+    Text("●", size=49, color="#dce5db", xpos=362, ypos=66),
+    Text("●", size=63, color="#dce5db", xpos=391, ypos=52),
+    # Sol alto: la orilla boscosa lo cubre parcialmente.
+    Text("●", size=133, color="#e5d48d", xpos=612, ypos=58),
+    Solid("#4a825d", xpos=0, ypos=202, xysize=(820, 202)),
+    Solid("#305f47", xpos=0, ypos=256, xysize=(820, 148)),
+
+    # Muchas copas superpuestas, con diferentes alturas y tonos.
+    Text("●", size=104, color="#397c55", xpos=-24, ypos=149),
+    Text("●", size=93, color="#286b4b", xpos=29, ypos=169),
+    Text("●", size=113, color="#347451", xpos=77, ypos=147),
+    Text("●", size=90, color="#448a60", xpos=141, ypos=170),
+    Text("●", size=116, color="#286b4b", xpos=190, ypos=142),
+    Text("●", size=93, color="#398159", xpos=264, ypos=167),
+    Text("●", size=105, color="#2b6b4c", xpos=314, ypos=140),
+    Text("●", size=93, color="#448a60", xpos=384, ypos=162),
+    Text("●", size=105, color="#296b4b", xpos=439, ypos=145),
+    Text("●", size=95, color="#398159", xpos=504, ypos=166),
+    Text("●", size=112, color="#286b4b", xpos=567, ypos=137),
+    Text("●", size=91, color="#397c55", xpos=638, ypos=158),
+    Text("●", size=106, color="#286b4b", xpos=692, ypos=145),
+    Text("●", size=100, color="#398159", xpos=758, ypos=161),
+    Text("●", size=65, color="#286b4b", xpos=21, ypos=222),
+    Text("●", size=76, color="#397c55", xpos=118, ypos=219),
+    Text("●", size=67, color="#286b4b", xpos=229, ypos=226),
+    Text("●", size=75, color="#397c55", xpos=351, ypos=216),
+    Text("●", size=74, color="#286b4b", xpos=711, ypos=218),
+
+    # Una vista más amplia del mismo río, curvándose hacia la derecha.
+    "ventana rio pampa",
+
+    # Árboles de la orilla cercana enmarcan el río sin ocultarlo.
+    Text("●", size=164, color="#245d41", xpos=-62, ypos=270),
+    Text("●", size=129, color="#30714d", xpos=20, ypos=323),
+    Text("●", size=150, color="#245d41", xpos=699, ypos=267),
+    Text("●", size=115, color="#347b52", xpos=745, ypos=330),
+    xysize=(820, 404),
+)
+
 image periodico_manu = Fixed(
     # Fotografía aérea del río Manu, ya en blanco y negro.
     Transform("manu.jpg", zoom=1.5),
@@ -167,7 +247,7 @@ image periodico_puente = Fixed(
     xysize=(330, 167),
 )
 
-image bg periodico = Fixed(
+image periodico base = Fixed(
     # Escritorio oscuro y periódico en blanco y negro.
     Solid("#142c25"),
     Solid("#1d3b31", xpos=0, ypos=0, xysize=(1280, 70)),
@@ -187,23 +267,7 @@ image bg periodico = Fixed(
     Solid("#9a9a96", xpos=760, ypos=56, xysize=(230, 5)),
     Solid("#9a9a96", xpos=760, ypos=68, xysize=(190, 5)),
 
-    # Titular principal.
-    Text(
-        "Índice de mercurio en la atmósfera\nsobre Manu aumenta en un 40%",
-        size=36,
-        bold=True,
-        color="#111111",
-        xpos=80,
-        ypos=120,
-        xmaximum=740,
-        line_spacing=-2,
-    ),
-    Solid("#9a9a96", xpos=80, ypos=222, xysize=(620, 6)),
-    Solid("#9a9a96", xpos=80, ypos=236, xysize=(560, 6)),
-
-    # Imagen principal y miniatura.
-    Transform("periodico_manu", xpos=80, ypos=252),
-    Transform("periodico_puente", xpos=840, ypos=252),
+    # Las fotografías se añaden según la portada: inicial o epílogo.
     Solid("#9a9a96", xpos=840, ypos=424, xysize=(220, 5)),
     Solid("#9a9a96", xpos=840, ypos=436, xysize=(190, 5)),
 
@@ -219,42 +283,40 @@ image bg periodico = Fixed(
 
 )
 
+image bg periodico = Fixed(
+    "periodico base",
+    Text(
+        "Índice de mercurio en la atmósfera\nsobre Manu aumenta en un 40%",
+        size=36,
+        bold=True,
+        color="#111111",
+        xpos=80,
+        ypos=120,
+        xmaximum=740,
+        line_spacing=-2,
+    ),
+    Solid("#9a9a96", xpos=80, ypos=222, xysize=(620, 6)),
+    Solid("#9a9a96", xpos=80, ypos=236, xysize=(560, 6)),
+    Transform("periodico_manu", xpos=80, ypos=252),
+    Transform("periodico_puente", xpos=840, ypos=252),
+)
+
 image bg ventana = Fixed(
-    # Interior de vehículo/cabaña durante el trayecto.
-    Solid("#10251f"),
-    Solid("#17362c", xpos=0, ypos=0, xysize=(1280, 82)),
-    Solid("#0a1713", xpos=0, ypos=512, xysize=(1280, 208)),
-
-    # Gran ventana panorámica hacia el bosque.
-    Solid("#735237", xpos=196, ypos=55, xysize=(888, 472)),
-    Solid("#0b1c18", xpos=214, ypos=73, xysize=(852, 436)),
-    Solid("#86b5a6", xpos=230, ypos=89, xysize=(820, 404)),
-    Text("●", size=104, color="#e7d67f", xpos=822, ypos=112),
-    Solid("#78a879", xpos=230, ypos=255, xysize=(820, 238)),
-    Solid("#4c8662", xpos=230, ypos=304, xysize=(820, 189)),
-    Solid("#2c674a", xpos=230, ypos=356, xysize=(820, 137)),
-    Solid("#4d9bad", xpos=230, ypos=423, xysize=(820, 70)),
-    Solid("#3e8498", xpos=230, ypos=461, xysize=(820, 32)),
-
-    # Árboles en diferentes planos para dar profundidad.
-    Solid("#285c43", xpos=282, ypos=184, xysize=(29, 239)),
-    Text("●", size=116, color="#397957", xpos=240, ypos=130),
-    Solid("#285c43", xpos=456, ypos=211, xysize=(25, 212)),
-    Text("●", size=94, color="#397957", xpos=423, ypos=156),
-    Solid("#214d39", xpos=630, ypos=156, xysize=(34, 268)),
-    Text("●", size=132, color="#2f6c4e", xpos=582, ypos=92),
-    Solid("#214d39", xpos=908, ypos=185, xysize=(30, 239)),
-    Text("●", size=118, color="#2f6c4e", xpos=868, ypos=120),
-    Solid("#735237", xpos=628, ypos=73, xysize=(17, 420)),
-    Solid("#735237", xpos=230, ypos=286, xysize=(820, 16)),
-
-    # Reflejos sobre el agua, tablero y asiento en primer plano.
-    Solid("#afd3c9", xpos=395, ypos=447, xysize=(130, 5)),
-    Solid("#afd3c9", xpos=715, ypos=468, xysize=(180, 5)),
-    Solid("#243f35", xpos=0, ypos=500, xysize=(1280, 54)),
-    Solid("#0d1d18", xpos=0, ypos=552, xysize=(1280, 168)),
-    Solid("#1d4034", xpos=70, ypos=470, xysize=(180, 140)),
-    Solid("#285243", xpos=88, ypos=490, xysize=(145, 96)),
+    # Acercamiento a la ventana del cuarto, no a un vehículo distinto.
+    Solid("#18382d"),
+    Solid("#245344", xpos=0, ypos=0, xysize=(1280, 82)),
+    Solid("#315f4d", xpos=0, ypos=545, xysize=(1280, 8)),
+    Solid("#10261f", xpos=0, ypos=553, xysize=(1280, 167)),
+    Solid("#805e3d", xpos=196, ypos=55, xysize=(888, 472)),
+    Solid("#102c27", xpos=214, ypos=73, xysize=(852, 436)),
+    Transform("ventana vista pampa", crop=(0, 0, 820, 404), xpos=230, ypos=89),
+    # Marco delante de las copas, como en la ventana pequeña.
+    Solid("#805e3d", xpos=196, ypos=55, xysize=(888, 18)),
+    Solid("#805e3d", xpos=196, ypos=509, xysize=(888, 18)),
+    Solid("#805e3d", xpos=196, ypos=73, xysize=(18, 436)),
+    Solid("#805e3d", xpos=1066, ypos=73, xysize=(18, 436)),
+    Solid("#805e3d", xpos=628, ypos=73, xysize=(17, 420)),
+    Solid("#805e3d", xpos=230, ypos=286, xysize=(820, 16)),
 )
 
 image bezout cuerpo = Fixed(
@@ -324,6 +386,59 @@ transform bezout_grande:
     xanchor 1.0
     yalign 1.0
     zoom 1.55
+
+
+init python:
+    def foto_recortada_periodico(foto, ancho, alto):
+        """Recorta una foto al marco sin deformarla ni dejar que se desborde."""
+        borde = 3
+        interior_ancho = ancho - borde * 2
+        interior_alto = alto - borde * 2
+        ancho_original, alto_original = renpy.image_size(foto)
+        proporcion_foto = float(ancho_original) / alto_original
+        proporcion_panel = float(interior_ancho) / interior_alto
+
+        if proporcion_foto > proporcion_panel:
+            ancho_recorte = int(alto_original * proporcion_panel)
+            recorte = ((ancho_original - ancho_recorte) // 2, 0,
+                       ancho_recorte, alto_original)
+        else:
+            alto_recorte = int(ancho_original / proporcion_panel)
+            recorte = (0, (alto_original - alto_recorte) // 2,
+                       ancho_original, alto_recorte)
+
+        return Fixed(
+            Transform(foto, crop=recorte, xpos=borde, ypos=borde,
+                      xysize=(interior_ancho, interior_alto)),
+            Solid("#4a4a46", xpos=0, ypos=0, xysize=(ancho, borde)),
+            Solid("#4a4a46", xpos=0, ypos=alto - borde, xysize=(ancho, borde)),
+            Solid("#4a4a46", xpos=0, ypos=0, xysize=(borde, alto)),
+            Solid("#4a4a46", xpos=ancho - borde, ypos=0, xysize=(borde, alto)),
+            xysize=(ancho, alto),
+        )
+
+    def periodico_con_titular(titular, foto):
+        """Periódico final con titular y foto elegidos por las decisiones."""
+        return Fixed(
+            "periodico base",
+            Transform(foto_recortada_periodico(foto, 720, 405), xpos=80, ypos=252),
+            Transform(
+                foto_recortada_periodico("images/puerto_maldonado.jpg", 330, 167),
+                xpos=840,
+                ypos=252,
+            ),
+            Text(
+                titular,
+                xpos=80,
+                ypos=116,
+                xmaximum=730,
+                size=31,
+                bold=True,
+                color="#111111",
+                line_spacing=-2,
+            ),
+            xysize=(1280, 720),
+        )
 
 
 # --- Story -------------------------------------------------------------------
@@ -446,7 +561,73 @@ label proyecto_aceptado:
             $ uso_mercurio = False
             bz "¿Seguro? Nos costará mucho más, pero está bien."
 
-    jump continuara
+    bz "Por último, pero no menos importante: el cierre de mina."
+    bz "Los operativos no duran para siempre, ya sabes."
+    bz "Siempre podemos gastar un poco en reparar y monitorear el área luego de que termine el proyecto."
+    bz "En teoría, ayudaría a cuidar mejor lo que quede y nos podría ahorrar uno que otro problema con el Estado…"
+    bz "…pero es un montón de chamba."
+
+    "Es verdad, en tus proyectos nunca ha habido plan de cierre. De todas formas, nunca te ha causado problemas."
+
+    menu:
+        "¿Hacen un plan de cierre?"
+
+        "Hagamos un plan de cierre.":
+            $ plan_cierre = True
+            bz "Saldrá caro, ojo. Pero podemos hacerlo."
+
+        "Sin plan de cierre.":
+            $ plan_cierre = False
+            bz "Bien, será como siempre."
+
+    bz "Bueno, socio, me parece que eso es lo más importante que había que decidir."
+    bz "¡Este sitio será un éxito! Pronto llamo a todo el equipo a chambear."
+    bz "Te avisaré para iniciar la gestión."
+    bz "Un gusto hacer negocios, como siempre."
+
+    hide bezout with dissolve
+
+    "Te despides de Bezout."
+    "Ha sido un encuentro muy fructífero, a tu parecer."
+    "Vuelves a tu cuarto."
+
+    scene bg cuarto with fade
+
+    "Pese a todo, algo te tiene pensativo."
+    "Meditas sobre lo que acaba de suceder."
+    "¿Tomaste la decisión correcta?"
+    "Solo tú puedes determinar eso."
+
+    scene black with fade
+    centered "Muchos años después…"
+
+    scene bg cuarto periodico with fade
+    play sound "audio/newspaper.mp3"
+
+    if not plan_cierre:
+        $ titular_final = "Puntos de minería ilegal abandonados quedan inhóspitos. Hectáreas de bosque perdidas."
+        $ foto_final = "images/sitio_abandonado.jpg"
+    elif zona_despejada and uso_mercurio:
+        $ titular_final = "Hectáreas de bosque perdidas y derrames de mercurio por la minería ilegal."
+        $ foto_final = "images/rio_contaminado.jpg"
+    elif zona_despejada:
+        $ titular_final = "Cientas de hectáreas de bosque perdidas por la minería ilegal."
+        $ foto_final = "images/tala.png"
+    else:
+        $ titular_final = "Bosques se ven afectados por avance de la minería ilegal."
+        $ foto_final = "images/bosques_afectados.jpg"
+
+    scene expression periodico_con_titular(titular_final, foto_final) with dissolve
+
+    "…"
+
+    scene expression paisaje_final(proyecto_iniciado, zona_despejada, uso_mercurio) with Fade(1.5, 0.5, 2.5)
+
+    centered "{size=+16}Fin del juego{/size}"
+
+    stop music fadeout 1.0
+
+    return
 
 
 label final_rechazo:
@@ -519,19 +700,6 @@ label final_rechazo:
     scene expression paisaje_final(proyecto_iniciado, zona_despejada, uso_mercurio) with fade
 
     centered "{size=+16}Fin del juego{/size}"
-
-    stop music fadeout 1.0
-
-    return
-
-
-label continuara:
-
-    hide bezout with dissolve
-
-    scene expression paisaje_final(proyecto_iniciado, zona_despejada, uso_mercurio) with fade
-
-    centered "{size=+16}Continuará…{/size}\n\nFin de la demo."
 
     stop music fadeout 1.0
 
