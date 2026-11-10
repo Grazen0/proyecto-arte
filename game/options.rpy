@@ -34,6 +34,12 @@ define config.language = "spanish"
 
 define gui.about = _p("""
 Una historia sobre la minería y sus efectos devastadores en el medio ambiente en Madre de Dios.
+
+Música del menú principal: \"Lanta Tipina\", de Wayku, del álbum Selva Selva (Buh Records).
+{a=https://buhrecords.bandcamp.com/track/lanta-tipina}Escuchar en Bandcamp{/a}
+
+Sonidos de fondo del juego: del álbum \"AMAZONIA\", de Nacho Rodríguez (Ignacio Rodríguez).
+{a=https://ignaciorodriguezmusic.bandcamp.com/album/amazonia-nacho-rodriguez}Escuchar en Bandcamp{/a}
 """)
 
 
@@ -66,7 +72,7 @@ define config.has_voice = True
 ## the player is at the main menu. This file will continue playing into the
 ## game, until it is stopped or another file is played.
 
-# define config.main_menu_music = "main-menu-theme.ogg"
+define config.main_menu_music = "audio/menu.mp3"
 
 
 ## Transitions #################################################################

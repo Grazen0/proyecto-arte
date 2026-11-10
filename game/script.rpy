@@ -26,6 +26,57 @@ default negaciones_finales = 0
 # A shared palette keeps the room, travel view, forest, and character cohesive:
 # deep jungle greens, blue-green water, warm wood, and a muted gold accent.
 
+image cuarto vista pampa = Fixed(
+    # Vista desde la habitación: cielo y selva continua de Madre de Dios.
+    Solid("#82b8be"),
+    Solid("#9bc9c0", xpos=0, ypos=80, xysize=(340, 50)),
+    Text("●", size=37, color="#e0e8df", xpos=34, ypos=29),
+    Text("●", size=47, color="#e0e8df", xpos=54, ypos=18),
+    Text("●", size=31, color="#e0e8df", xpos=83, ypos=31),
+    # Sol alto, parcialmente cubierto por las copas de la orilla opuesta.
+    Text("●", size=78, color="#e5d48d", xpos=243, ypos=12),
+    Solid("#4a825d", xpos=0, ypos=124, xysize=(340, 138)),
+    Solid("#305f47", xpos=0, ypos=157, xysize=(340, 105)),
+    # Copas cercanas entre sí y de diferentes alturas: no hay una hilera vacía.
+    Text("●", size=60, color="#397c55", xpos=-14, ypos=95),
+    Text("●", size=52, color="#286b4b", xpos=25, ypos=108),
+    Text("●", size=62, color="#347451", xpos=54, ypos=91),
+    Text("●", size=49, color="#448a60", xpos=91, ypos=106),
+    Text("●", size=65, color="#286b4b", xpos=116, ypos=91),
+    Text("●", size=52, color="#398159", xpos=156, ypos=106),
+    Text("●", size=59, color="#2b6b4c", xpos=186, ypos=88),
+    Text("●", size=53, color="#448a60", xpos=225, ypos=104),
+    Text("●", size=61, color="#296b4b", xpos=255, ypos=92),
+    Text("●", size=54, color="#398159", xpos=298, ypos=106),
+    Text("●", size=48, color="#286b4b", xpos=322, ypos=99),
+    Text("●", size=42, color="#266145", xpos=11, ypos=137),
+    Text("●", size=44, color="#397c55", xpos=74, ypos=137),
+    Text("●", size=42, color="#286b4b", xpos=140, ypos=135),
+    Text("●", size=45, color="#397c55", xpos=277, ypos=137),
+
+    # El Tambopata aparece a lo lejos y se ensancha hacia la ventana.
+    Solid("#5b9875", xpos=203, ypos=148, xysize=(48, 11)),
+    Solid("#4a9bad", xpos=210, ypos=150, xysize=(29, 8)),
+    Solid("#4a9bad", xpos=203, ypos=158, xysize=(45, 9)),
+    Solid("#4a9bad", xpos=192, ypos=167, xysize=(65, 10)),
+    Solid("#4a9bad", xpos=181, ypos=177, xysize=(86, 11)),
+    Solid("#4a9bad", xpos=167, ypos=188, xysize=(115, 12)),
+    Solid("#4a9bad", xpos=151, ypos=200, xysize=(146, 12)),
+    Solid("#3d889d", xpos=128, ypos=212, xysize=(185, 13)),
+    Solid("#3d889d", xpos=108, ypos=225, xysize=(215, 13)),
+    Solid("#3d889d", xpos=85, ypos=238, xysize=(252, 12)),
+    Solid("#3d889d", xpos=65, ypos=250, xysize=(275, 12)),
+    Solid("#acd4c8", xpos=200, ypos=172, xysize=(35, 3)),
+    Solid("#acd4c8", xpos=191, ypos=196, xysize=(63, 3)),
+    Solid("#acd4c8", xpos=152, ypos=228, xysize=(79, 3)),
+    # Vegetación cercana que enmarca ambas márgenes.
+    Text("●", size=91, color="#245d41", xpos=-33, ypos=159),
+    Text("●", size=72, color="#30714d", xpos=2, ypos=202),
+    Text("●", size=85, color="#245d41", xpos=292, ypos=162),
+    Text("●", size=65, color="#347b52", xpos=309, ypos=207),
+    xysize=(340, 262),
+)
+
 image bg cuarto = Fixed(
     # Habitación: pared, zócalo y piso de madera oscura.
     Solid("#18382d"),
@@ -34,16 +85,10 @@ image bg cuarto = Fixed(
     Solid("#0b1a16", xpos=0, ypos=560, xysize=(1280, 160)),
     Solid("#315f4d", xpos=0, ypos=505, xysize=(1280, 8)),
 
-    # Ventana: cielo, sol, cerros y una línea de árboles.
+    # Ventana con vista al río y a la selva de Madre de Dios.
     Solid("#805e3d", xpos=754, ypos=76, xysize=(392, 314)),
     Solid("#102c27", xpos=766, ypos=88, xysize=(368, 290)),
-    Solid("#78a99d", xpos=780, ypos=102, xysize=(340, 262)),
-    Text("●", size=84, color="#ead77c", xpos=995, ypos=120),
-    Solid("#5f9a76", xpos=780, ypos=255, xysize=(340, 109)),
-    Solid("#347154", xpos=780, ypos=290, xysize=(340, 74)),
-    Solid("#1d4b38", xpos=803, ypos=202, xysize=(22, 162)),
-    Solid("#1d4b38", xpos=875, ypos=230, xysize=(28, 134)),
-    Solid("#1d4b38", xpos=1050, ypos=210, xysize=(25, 154)),
+    Transform("cuarto vista pampa", xpos=780, ypos=102),
     Solid("#805e3d", xpos=940, ypos=88, xysize=(14, 276)),
     Solid("#805e3d", xpos=780, ypos=220, xysize=(340, 13)),
 
@@ -212,85 +257,6 @@ image bg ventana = Fixed(
     Solid("#285243", xpos=88, ypos=490, xysize=(145, 96)),
 )
 
-image bg bosque = Fixed(
-    # Cielo de selva, copa de árboles y vegetación a distintas distancias.
-    Solid("#6fa590"),
-    # Solid("#2d6d4d", xpos=0, ypos=104, xysize=(1280, 360)),
-    Solid("#22583f", xpos=0, ypos=190, xysize=(1280, 275)),
-    Solid("#173e30", xpos=0, ypos=330, xysize=(1280, 155)),
-    # Sol alto, al fondo y entre claros de la copa de los árboles.
-    Text("●", size=162, color="#e2d77b", xpos=327, ypos=-38),
-
-    # Selva densa al fondo: copas superpuestas de distintas alturas,
-    # como la vegetación continua de las riberas de Madre de Dios.
-    Solid("#285f43", xpos=25, ypos=251, xysize=(14, 197)),
-    Text("●", size=84, color="#36805a", xpos=-8, ypos=207),
-    Solid("#285f43", xpos=142, ypos=278, xysize=(12, 170)),
-    Text("●", size=76, color="#419064", xpos=112, ypos=237),
-    Solid("#285f43", xpos=225, ypos=235, xysize=(14, 213)),
-    Text("●", size=90, color="#317451", xpos=190, ypos=189),
-    Solid("#285f43", xpos=373, ypos=268, xysize=(13, 180)),
-    Text("●", size=85, color="#3a865c", xpos=339, ypos=225),
-    Solid("#285f43", xpos=456, ypos=244, xysize=(13, 204)),
-    Text("●", size=89, color="#327a53", xpos=422, ypos=199),
-    Solid("#285f43", xpos=611, ypos=257, xysize=(14, 191)),
-    Text("●", size=82, color="#419064", xpos=578, ypos=215),
-    Solid("#285f43", xpos=687, ypos=223, xysize=(13, 225)),
-    Text("●", size=93, color="#337a53", xpos=649, ypos=173),
-    Solid("#285f43", xpos=841, ypos=270, xysize=(14, 178)),
-    Text("●", size=85, color="#3a865c", xpos=808, ypos=227),
-    Solid("#285f43", xpos=933, ypos=231, xysize=(13, 217)),
-    Text("●", size=91, color="#337a53", xpos=897, ypos=183),
-    Solid("#285f43", xpos=1101, ypos=254, xysize=(14, 194)),
-    Text("●", size=85, color="#419064", xpos=1067, ypos=211),
-    Solid("#285f43", xpos=1242, ypos=267, xysize=(13, 181)),
-    Text("●", size=91, color="#337a53", xpos=1206, ypos=219),
-
-    # Árboles lejanos y follaje en capas.
-    Solid("#1b4a36", xpos=78, ypos=112, xysize=(34, 355)),
-    Text("●", size=160, color="#2e7550", xpos=6, ypos=55),
-    Text("●", size=130, color="#367e58", xpos=102, ypos=88),
-    Solid("#1b4a36", xpos=290, ypos=160, xysize=(30, 307)),
-    Text("●", size=140, color="#2c704f", xpos=220, ypos=88),
-    Solid("#1b4a36", xpos=520, ypos=125, xysize=(37, 342)),
-    Text("●", size=180, color="#286847", xpos=436, ypos=35),
-    Solid("#173e30", xpos=770, ypos=151, xysize=(39, 316)),
-    Text("●", size=170, color="#245f43", xpos=688, ypos=65),
-    Solid("#173e30", xpos=1027, ypos=105, xysize=(45, 362)),
-    Text("●", size=195, color="#245f43", xpos=932, ypos=10),
-    Solid("#173e30", xpos=1191, ypos=174, xysize=(34, 293)),
-    Text("●", size=150, color="#2b704d", xpos=1120, ypos=98),
-
-    # Follaje cercano de la ribera: el bosque no termina en una fila de troncos.
-    Text("●", size=89, color="#286848", xpos=35, ypos=298),
-    Text("●", size=104, color="#2f7550", xpos=162, ypos=296),
-    Text("●", size=96, color="#286848", xpos=348, ypos=280),
-    Text("●", size=108, color="#2e704e", xpos=555, ypos=301),
-    Text("●", size=97, color="#276446", xpos=749, ypos=287),
-    Text("●", size=106, color="#2f7550", xpos=901, ypos=297),
-    Text("●", size=94, color="#286848", xpos=1096, ypos=284),
-
-    # Río Tambopata y reflejos suaves.
-    Solid("#4d9bad", xpos=0, ypos=448, xysize=(1280, 126)),
-    Solid("#3e8498", xpos=0, ypos=505, xysize=(1280, 69)),
-    Solid("#b5d8ca", xpos=90, ypos=475, xysize=(166, 7)),
-    Solid("#b5d8ca", xpos=370, ypos=528, xysize=(214, 7)),
-    Solid("#b5d8ca", xpos=785, ypos=470, xysize=(190, 7)),
-    Solid("#b5d8ca", xpos=1060, ypos=535, xysize=(130, 7)),
-
-    # Orilla, rocas, hojas cercanas y luciérnagas.
-    Solid("#553d2c", xpos=0, ypos=574, xysize=(1280, 146)),
-    Solid("#365f3e", xpos=0, ypos=562, xysize=(1280, 22)),
-    Solid("#806347", xpos=270, ypos=543, xysize=(92, 31)),
-    Solid("#806347", xpos=940, ypos=536, xysize=(124, 38)),
-    Text("●", size=42, color="#75a965", xpos=34, ypos=507),
-    Text("●", size=54, color="#4f9258", xpos=112, ypos=520),
-    Text("●", size=50, color="#4f9258", xpos=1150, ypos=503),
-    Text("•", size=30, color="#e8dc85", xpos=410, ypos=391),
-    Text("•", size=24, color="#e8dc85", xpos=700, ypos=432),
-    Text("•", size=28, color="#e8dc85", xpos=1090, ypos=365),
-)
-
 image bezout cuerpo = Fixed(
     # Sombra y piernas.
     Solid("#0b1b17a0", xpos=28, ypos=416, xysize=(196, 12)),
@@ -364,6 +330,8 @@ transform bezout_grande:
 
 label start:
 
+    play music "audio/sounds.mp3" fadein 1.0
+
     scene bg cuarto periodico with fade
 
     "Es un día nuevo."
@@ -388,6 +356,7 @@ label start:
 
     "Te fijas en el periódico que trajiste el otro día."
 
+    play sound "audio/newspaper.mp3"
     scene bg periodico with dissolve
 
     "..."
@@ -551,6 +520,8 @@ label final_rechazo:
 
     centered "{size=+16}Fin del juego{/size}"
 
+    stop music fadeout 1.0
+
     return
 
 
@@ -561,5 +532,7 @@ label continuara:
     scene expression paisaje_final(proyecto_iniciado, zona_despejada, uso_mercurio) with fade
 
     centered "{size=+16}Continuará…{/size}\n\nFin de la demo."
+
+    stop music fadeout 1.0
 
     return
