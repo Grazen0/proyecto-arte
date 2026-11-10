@@ -11,6 +11,12 @@ init python:
             renpy.show("bezout neutral", at_list=[renpy.store.bezout_grande])
 
 define bz = Character("Bezout", color="#d9a441", callback=bezout_habla)
+define fin_juego = Character(
+    None,
+    what_style="game_over_text",
+    window_style="game_over_window",
+    statement_name="say-centered",
+)
 
 # --- Story flags -------------------------------------------------------------
 # These are here so later scenes can react to the player's decisions.
@@ -445,7 +451,7 @@ init python:
 
 label start:
 
-    play music "audio/sounds.mp3" fadein 1.0
+    play music "audio/sounds.mp3"
 
     scene bg cuarto periodico with fade
 
@@ -465,6 +471,7 @@ label start:
     "\"Ilícito\" llamarían algunos al tipo de minería del que te encargas."
     "Conociste a Bezout allá por tus primeros años involucrados en minería."
     "Es empresario, como tú, y juntos han levantado múltiples operativos mineros aquí en la selva."
+    "Es gracias a Bezout y sus contactos que has podido evadir la ley múltiples veces."
     "Por suerte, habías viajado hace poco a Madre de Dios para supervisar uno de los sitios que gestionas."
 
     scene bg cuarto periodico with fade
@@ -540,10 +547,15 @@ label proyecto_aceptado:
             $ zona_despejada = False
             "Algo te hace pensar que despejar el área no es buena idea."
             bz "Uy, ¿cómo que no, socio? Bueno, podemos intentar no hacerlo esta vez…"
-            "Bezout lo anota un momento en su celular."
 
-    bz "Ahora, otra cosa en la lista: el proceso de extracción. ¿Usaremos mercurio, o el gravimétrico?"
-    bz "Es importante eso. De mi experiencia, es de lo que más determina el beneficio que sacaremos del proyecto."
+    "Bezout lo anota un momento en su celular."
+    bz "¡Listo! poco a poco vamos avanzando."
+    "Bezout guarda su celular y mira alrededor."
+    bz "¿Qué te parece el lugar? Bastante bonito, ¿no?"
+    bz "La verdad, cuando vine por primera vez, no esperaba encontrarme con un paisaje así."
+    bz "Aunque bueno, ya sabes cómo es esto. No podemos quedarnos admirando el paisaje todo el día."
+    bz "Hablando de trabajar, hay algo que todavía tenemos que definir. ¿Ya pensaste cómo vamos a separar el mineral del resto del material?"
+    bz "Tenemos un par de alternativas para hacerlo. ¿Qué te parece si revisamos?"
 
     "El mercurio y el método gravimétrico son dos métodos de separar el oro en la extracción."
     "Históricamente, el mercurio te ha servido mucho mejor. El método gravimétrico, cuando lo has probado, ha producido resultados más lentos y mucho más caros."
@@ -564,8 +576,8 @@ label proyecto_aceptado:
     bz "Por último, pero no menos importante: el cierre de mina."
     bz "Los operativos no duran para siempre, ya sabes."
     bz "Siempre podemos gastar un poco en reparar y monitorear el área luego de que termine el proyecto."
-    bz "En teoría, ayudaría a cuidar mejor lo que quede y nos podría ahorrar uno que otro problema con el Estado…"
-    bz "…pero es un montón de chamba."
+    bz "En teoría, ayudaría a cuidar mejor lo que quede y nos podría ahorrar uno que otro problema con el Estado..."
+    bz "...pero es un montón de chamba."
 
     "Es verdad, en tus proyectos nunca ha habido plan de cierre. De todas formas, nunca te ha causado problemas."
 
@@ -610,6 +622,9 @@ label proyecto_aceptado:
     elif zona_despejada and uso_mercurio:
         $ titular_final = "Hectáreas de bosque perdidas y derrames de mercurio por la minería ilegal."
         $ foto_final = "images/rio_contaminado.jpg"
+    elif uso_mercurio:
+        $ titular_final = "Derrames masivos de mercurio en Tambopata por la minería ilegal."
+        $ foto_final = "images/rio_contaminado.jpg"
     elif zona_despejada:
         $ titular_final = "Cientas de hectáreas de bosque perdidas por la minería ilegal."
         $ foto_final = "images/tala.png"
@@ -619,11 +634,11 @@ label proyecto_aceptado:
 
     scene expression periodico_con_titular(titular_final, foto_final) with dissolve
 
-    "…"
+    "..."
 
     scene expression paisaje_final(proyecto_iniciado, zona_despejada, uso_mercurio) with Fade(1.5, 0.5, 2.5)
 
-    centered "{size=+16}Fin del juego{/size}"
+    fin_juego "Fin del juego"
 
     stop music fadeout 1.0
 
@@ -640,7 +655,7 @@ label final_rechazo:
             $ proyecto_iniciado = True
             jump proyecto_aceptado
 
-        "No creo que sea buena idea…":
+        "No creo que sea buena idea...":
             pass
 
     bz "Vamos, no seas tan pesimista. ¿Qué es lo que te hace dudar? Tenemos información favorable y una oportunidad que vale la pena explorar."
@@ -651,7 +666,7 @@ label final_rechazo:
             $ proyecto_iniciado = True
             jump proyecto_aceptado
 
-        "Sigo pensando que no…":
+        "Sigo pensando que no...":
             pass
 
     bz "¡Pero vamos! ¿Después de todo lo que hemos investigado, vamos a echarlo todo por la borda?"
@@ -699,7 +714,7 @@ label final_rechazo:
 
     scene expression paisaje_final(proyecto_iniciado, zona_despejada, uso_mercurio) with fade
 
-    centered "{size=+16}Fin del juego{/size}"
+    fin_juego "Fin del juego"
 
     stop music fadeout 1.0
 

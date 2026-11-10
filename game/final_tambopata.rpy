@@ -184,6 +184,19 @@ image final arboles cerca = copas_ribera([
     (1079, 410, 117, "#397f54"), (1231, 481, 147, "#245f41"),
 ], 630, troncos=False)
 
+image final arboles cerca proyecto = copas_ribera([
+    # Se sustituyen solo cuatro árboles de primer plano por tocones.
+    (-58, 338, 209, "#245f41"), (30, 365, 143, "#2c7049"),
+    (1187, 347, 185, "#2e704b"),
+    (1231, 481, 147, "#245f41"),
+], 630, troncos=False)
+
+image final tocones proyecto = tocones_ribera([
+    # Se ubican en tramos despejados de la ribera, sin ponerse sobre los arbustos.
+    (205, 570, 28, 34), (268, 582, 32, 38),
+    (995, 500, 28, 34), (1058, 514, 34, 40),
+])
+
 image final tocones fondo = tocones_ribera([
     # Una base por cada árbol del fondo; tamaños irregulares, como la selva.
     (10, 259, 19, 23), (55, 252, 17, 28), (100, 263, 21, 24),
@@ -225,6 +238,19 @@ image final tocones cerca = tocones_ribera([
 
 image final tocones dispersos = tocones_perspectiva()
 
+image final petroleo leve = Fixed(
+    # Rastros pequeños y separados de combustible sobre el agua.
+    Solid("#81734f", xpos=145, ypos=448, xysize=(36, 7)),
+    Solid("#baa259", xpos=151, ypos=450, xysize=(18, 3)),
+    Solid("#81734f", xpos=424, ypos=470, xysize=(28, 6)),
+    Solid("#baa259", xpos=429, ypos=471, xysize=(12, 3)),
+    Solid("#81734f", xpos=742, ypos=459, xysize=(40, 7)),
+    Solid("#baa259", xpos=749, ypos=461, xysize=(20, 3)),
+    Solid("#81734f", xpos=1059, ypos=431, xysize=(31, 6)),
+    Solid("#baa259", xpos=1064, ypos=432, xysize=(14, 3)),
+    xysize=(1280, 720),
+)
+
 image final rio limpio = cauce_hacia_izquierda("#4a9bae", "#337e97", "#a2d2cf")
 image final rio contaminado = Fixed(
     cauce_hacia_izquierda("#327b9c", "#2a5d80", "#73a0ac"),
@@ -260,9 +286,13 @@ init python:
             capas.extend(("bosque arboles altos", "final arboles fondo",
                           "bosque arboles orilla"))
         capas.append("final rio contaminado" if mercurio else "final rio limpio")
+        if proyecto and not mercurio:
+            capas.append("final petroleo leve")
         capas.append("final orilla")
         if despeje:
             capas.extend(("final tocones cerca", "final tocones dispersos"))
+        elif proyecto:
+            capas.extend(("final arboles cerca proyecto", "final tocones proyecto"))
         else:
             capas.append("final arboles cerca")
 
@@ -272,7 +302,7 @@ init python:
 
         danos = int(despeje) + int(mercurio)
         # Futuras consecuencias pueden seguir quitando color sin límite brusco.
-        saturacion = 0.82 * (0.70 ** danos)
+        saturacion = 0.68 * (0.72 ** danos)
         return Transform(
             imagen,
             matrixcolor=TintMatrix("#f0e2d0") * SaturationMatrix(saturacion),

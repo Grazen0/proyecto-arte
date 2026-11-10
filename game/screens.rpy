@@ -593,6 +593,19 @@ style about_label_text:
     size gui.label_text_size
 
 
+## High-contrast ending title, legible over both light and dark landscapes.
+style game_over_window is centered_window:
+    background Solid("#07110f88")
+    xpadding 48
+    ypadding 24
+
+style game_over_text is centered_text:
+    size 48
+    color "#d9f0c2"
+    bold True
+    outlines [(3, "#061009", 0, 0)]
+
+
 ## Load and Save screens #######################################################
 ##
 ## These screens are responsible for letting the player save the game and load
